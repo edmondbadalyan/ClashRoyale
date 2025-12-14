@@ -1885,15 +1885,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -51743482974753389, guid: c799e28c0d42e5a4d8056e83160155b2, type: 3}
       propertyPath: m_Carve
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -51743482974753389, guid: c799e28c0d42e5a4d8056e83160155b2, type: 3}
+      propertyPath: m_Shape
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -51743482974753389, guid: c799e28c0d42e5a4d8056e83160155b2, type: 3}
+      propertyPath: m_Extents.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -51743482974753389, guid: c799e28c0d42e5a4d8056e83160155b2, type: 3}
+      propertyPath: m_CarveOnlyStationary
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1533339852552159283, guid: c799e28c0d42e5a4d8056e83160155b2, type: 3}
       propertyPath: m_Name
       value: miniTOwer R
       objectReference: {fileID: 0}
+    - target: {fileID: 1533339852552159283, guid: c799e28c0d42e5a4d8056e83160155b2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7002107640279011842, guid: c799e28c0d42e5a4d8056e83160155b2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.01
+      value: -8.59
       objectReference: {fileID: 0}
     - target: {fileID: 7002107640279011842, guid: c799e28c0d42e5a4d8056e83160155b2, type: 3}
       propertyPath: m_LocalPosition.y
