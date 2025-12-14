@@ -13,7 +13,7 @@ public class UsualAttack : UnitState
     public override void Constructor(Unit unit)
     {
         base.Constructor(unit);
-        _targetIsEnemy = _unit._isEnemy;
+        _targetIsEnemy = !_unit._isEnemy;
     }
     public override void Finish()
     {

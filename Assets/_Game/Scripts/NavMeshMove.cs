@@ -16,7 +16,7 @@ public class NavMeshMove : UnitState
     {
         base.Constructor(unit);
 
-        _targetIsEnemy = _unit._isEnemy;
+        _targetIsEnemy = !_unit._isEnemy;
         _agent = _unit.GetComponent<NavMeshAgent>();
         if (_agent == null) Debug.LogWarning($"�� ��������� {unit.name}, ��� ���������� NavMeshAgent");
         _agent.speed = _unit.parametres.speed;

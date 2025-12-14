@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,11 +13,20 @@ public class MapInfo : MonoBehaviour
 
         Instance = this;
     }
+    private void Start()
+    {
+        SubscribeOnDestroy(_playerUnits);
+        SubscribeOnDestroy(_enemyUnits);
+        SubscribeOnDestroy(_playerTowers);
+        SubscribeOnDestroy(_enemyTowers);
+    }
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
+        
     }
 
+    
 
     [SerializeField] private List<Tower> _playerTowers = new();
     [SerializeField] private List<Tower> _enemyTowers = new(); 
@@ -53,5 +63,36 @@ public class MapInfo : MonoBehaviour
         }
 
         return nearestObject;
+    }
+
+    private void SubscribeOnDestroy<T>(List<T> objects) where T : Idestroy
+    {
+        for (int i = 0; i < objects.Count; i++)
+        {
+            T obj = objects[i];
+            obj.onDestroy += RemoveandUnsubscribe;
+
+            void RemoveandUnsubscribe(){
+                RemoveObjectFromList(objects, obj);
+                obj.onDestroy -= RemoveandUnsubscribe;
+            };
+        }
+    }
+    private void RemoveObjectFromList<T>(List<T> objects, T obj) where T : Idestroy
+    {
+        if (objects.Contains(obj))
+        {
+            objects.Remove(obj);
+            
+        }
+    }
+    private void AddObjectToList<T>(List<T> objects, T obj) where T : Idestroy
+    {
+        objects.Add(obj);
+        obj.onDestroy += RemoveandUnsubscribe;
+        void RemoveandUnsubscribe(){
+            RemoveObjectFromList(objects, obj);
+            obj.onDestroy -= RemoveandUnsubscribe;
+        };
     }
 }

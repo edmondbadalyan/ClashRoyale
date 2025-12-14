@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 using static UnitState;
 
 [RequireComponent(typeof(UnitParametres)),RequireComponent(typeof(Health))]
-public class Unit : MonoBehaviour, IHealth
+public class Unit : MonoBehaviour, IHealth, Idestroy
 {
     [field: SerializeField] public Health health { get; private set; }
     [field: SerializeField] public bool _isEnemy { get; private set; } = false;
@@ -15,11 +16,22 @@ public class Unit : MonoBehaviour, IHealth
     private UnitState _chasetState;
     private UnitState _attacktState;
 
-
+    public event Action onDestroy;
     private UnitState _currentState;
 
 
     private void Start()
+    {
+       
+        CreateStates();
+
+        _currentState = _defaultState;
+        _currentState.Init();
+        
+        health.onHealthChanged += CheckDestroy;
+    }
+
+    private void CreateStates()
     {
         _defaultState = Instantiate(_defaultStateSO);
         _defaultState.Constructor(this);
@@ -27,10 +39,6 @@ public class Unit : MonoBehaviour, IHealth
         _chasetState.Constructor(this);
         _attacktState = Instantiate(_attacktStateSO);
         _attacktState.Constructor(this);
-
-        _currentState = _defaultState;
-        _currentState.Init();
-        
     }
     private void Update()
     {
@@ -57,10 +65,20 @@ public class Unit : MonoBehaviour, IHealth
         _currentState.Init();
     }
 
+private void CheckDestroy(float currentHealth)
+{
+    if (currentHealth > 0) return;
+        Destroy(gameObject);
+        health.onHealthChanged -= CheckDestroy;
+        onDestroy?.Invoke();
+}
 
     #if UNITY_EDITOR
     [Space(20)]
     [SerializeField] private bool _drawGizmos = false;
+
+    
+
     private void OnDrawGizmos()
     {
         if (!_drawGizmos) return;
