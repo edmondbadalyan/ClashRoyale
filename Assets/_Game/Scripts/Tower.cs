@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Health))]
 public class Tower : MonoBehaviour, IHealth, Idestroy
@@ -12,7 +13,12 @@ public class Tower : MonoBehaviour, IHealth, Idestroy
 
     public float GetDistance(in Vector3 point) => Vector3.Distance(transform.position, point) - radius;
 
+    //private NavMeshObstacle _navMeshObstacle;
 
+    private void Awake()
+    {
+       // _navMeshObstacle = GetComponent<NavMeshObstacle>();
+    }
     private void Start()
     {
         health.onHealthChanged += CheckDestroy;
@@ -21,6 +27,10 @@ public class Tower : MonoBehaviour, IHealth, Idestroy
     private void CheckDestroy(float currentHealth)
    {
     if (currentHealth > 0) return;
+            //if (_navMeshObstacle != null)
+            //     {
+            //         _navMeshObstacle.enabled = false;
+            //     }
         Destroy(gameObject);
         health.onHealthChanged -= CheckDestroy;
         onDestroy?.Invoke();
