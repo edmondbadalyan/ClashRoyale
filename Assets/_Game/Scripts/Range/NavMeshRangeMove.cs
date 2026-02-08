@@ -10,14 +10,11 @@ public class NavMeshRangeMove : UnitStateNavMeshMove
 
     private bool TryAttackTower()
     {
-        float distanceToTarget = _nearestTower.GetDistance(_unit.transform.position);
-        if (distanceToTarget <= _unit.parametres.startAttackDistance)
-        {
+        if (!TryUpdateNearestTower())
+            return false;
 
-            
-            return true;
-        }
-        return false;
+        float distanceToTarget = _nearestTower.GetDistance(_unit.transform.position);
+        return distanceToTarget <= _unit.parametres.startAttackDistance;
     }
 
     protected override bool TryFindTarget(out UnitStateType changeType)

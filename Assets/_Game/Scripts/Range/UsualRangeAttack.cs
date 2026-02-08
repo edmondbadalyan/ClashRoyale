@@ -8,7 +8,7 @@ public class UsualRangeAttack : UnitStateAttack
     {
         stopAttackDistance = _stopAttackDistance;
         bool isFoundEnemy = MapInfo.Instance.TryGetNearestUnit(_unit.transform.position, _targetIsEnemy, out Unit enemyUnit, out float distance);
-        
+
         
         if(isFoundEnemy && distance - enemyUnit.parametres.modelRadius <= _unit.parametres.startAttackDistance)
         {

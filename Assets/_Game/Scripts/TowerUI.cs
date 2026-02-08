@@ -11,7 +11,7 @@ public class TowerUI : MonoBehaviour
 
     private  void Start()
     {
-        _healthBar.SetActive(false);
+        _healthBar.SetActive(true);
         _maxHealth = _tower.health.maxHealth;
         _tower.health.onHealthChanged += UpdateHealthBar;
     }

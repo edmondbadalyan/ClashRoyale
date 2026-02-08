@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
     public event Action<float> onHealthChanged;
     [field: SerializeField] public float maxHealth { get; private set; } = 10f;
     private float _currentHealth;
+    public float currentHealth => _currentHealth;
 
     private void Start(){
         _currentHealth = maxHealth;

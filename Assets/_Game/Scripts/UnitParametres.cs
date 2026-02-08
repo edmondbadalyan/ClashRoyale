@@ -9,6 +9,7 @@ public class UnitParametres : MonoBehaviour
     [field: SerializeField] public float startChaseDistance { get; private set; } = 5f;
     [field: SerializeField] public float stoptChaseDistance { get; private set; } = 7f;
     [field: SerializeField] public float speed { get; private set; } = 3.5f;
+    [field: SerializeField] public float damageDelay { get; private set; } = 3.5f;
 
 
     [SerializeField] public float _startAttackDistance = 1f;

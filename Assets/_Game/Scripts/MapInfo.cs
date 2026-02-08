@@ -51,14 +51,23 @@ public class MapInfo : MonoBehaviour
 
     public bool TryGetNearestUnit(in Vector3 currentPosition, bool enemy, out Unit unit, out float distance)
     {
-        TryGetNearestFlyingUnit(currentPosition, enemy, out Unit flyingUnit, out float flyingDistance);
-        TryGetNearestWalkingUnit(currentPosition, enemy, out Unit walkingUnit, out float walkingDistance);
-        
-        if (flyingDistance < walkingDistance) {
+        bool hasFlying = TryGetNearestFlyingUnit(currentPosition, enemy, out Unit flyingUnit, out float flyingDistance);
+        bool hasWalking = TryGetNearestWalkingUnit(currentPosition, enemy, out Unit walkingUnit, out float walkingDistance);
+
+        if (!hasFlying && !hasWalking)
+        {
+            unit = null;
+            distance = float.MaxValue;
+            return false;
+        }
+
+        if (hasFlying && (!hasWalking || flyingDistance < walkingDistance))
+        {
             unit = flyingUnit;
             distance = flyingDistance;
             return true;
         }
+
         unit = walkingUnit;
         distance = walkingDistance;
         return true;

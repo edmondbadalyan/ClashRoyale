@@ -22,10 +22,7 @@ public abstract class UnitStateNavMeshMove : UnitState
     }
     public override void Init()
     {
-        Vector3 unitPosition = _unit.transform.position;
-
-        _nearestTower = MapInfo.Instance.GetNearestTower(in unitPosition, _targetIsEnemy);
-        _agent.SetDestination(_nearestTower.transform.position);
+        TryUpdateNearestTower();
     }
     public override void Run()
     {
@@ -37,6 +34,23 @@ public abstract class UnitStateNavMeshMove : UnitState
     }
 
     protected abstract bool TryFindTarget(out UnitStateType changeType);
+
+    protected bool TryUpdateNearestTower()
+    {
+        if (_nearestTower)
+            return true;
+
+        Vector3 unitPosition = _unit.transform.position;
+        _nearestTower = MapInfo.Instance.GetNearestTower(in unitPosition, _targetIsEnemy);
+        if (!_nearestTower)
+        {
+            _agent.ResetPath();
+            return false;
+        }
+
+        _agent.SetDestination(_nearestTower.transform.position);
+        return true;
+    }
 
     public override void Finish()
     {
