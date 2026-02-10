@@ -26,7 +26,7 @@ public class Tower : MonoBehaviour, IHealth, Idestroy
 
     private void CheckDestroy(float currentHealth)
    {
-    if (currentHealth > 0) return;
+        if (currentHealth > 0) return;
             //if (_navMeshObstacle != null)
             //     {
             //         _navMeshObstacle.enabled = false;

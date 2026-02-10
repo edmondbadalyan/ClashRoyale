@@ -68,10 +68,14 @@ public abstract class UnitStateAttack : UnitState
      float distance = Vector3.Distance(_unit.transform.position, _targetHealth.transform.position);
      if (distance > _stopAttackDistance) _unit.SetState(UnitStateType.Chase);
 
-     _targetHealth.ApplyDamage(_damage);
+        Attack();
     }
 
 
+    protected virtual void Attack() 
+    {
+        _targetHealth.ApplyDamage(_damage);
 
+    }
     protected abstract bool TryFindTarget(out float stopAttackDistance);
 }

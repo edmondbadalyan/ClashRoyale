@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class Health : MonoBehaviour
 {
@@ -18,6 +19,16 @@ public class Health : MonoBehaviour
         }
         onHealthChanged?.Invoke(_currentHealth);
         Debug.Log($"Health: {_currentHealth} - {damage}" );
+    }
+    public void ApplyDelayDamage(float delay,float damage)
+    {
+        StartCoroutine(DelayDamage(delay,damage));
+    }
+    private IEnumerator DelayDamage(float delay, float damage)
+    {
+        yield return new WaitForSeconds(delay);
+        ApplyDamage(damage);
+
     }
 }
 
